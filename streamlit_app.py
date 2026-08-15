@@ -25,7 +25,7 @@ APP_DIR = Path(__file__).resolve().parent
 DEFAULT_MODEL = "gpt-5.6-luna"
 
 st.set_page_config(
-    page_title="IPB&F Dead-Oil Viscosity AI Agent",
+    page_title="ViscoSense AI—the IPB&F Dead-Oil Viscosity Agent.",
     page_icon="🛢️",
     layout="wide",
 )
@@ -184,7 +184,8 @@ def reset_chat() -> None:
         {
             "role": "assistant",
             "content": (
-                "Welcome! I can predict dead-oil viscosity using the IPB&F's "
+                "Welcome! I am the ViscoSense AI—the IPB&F Dead-Oil Viscosity Agent. "
+                "I can predict dead-oil viscosity using the IPB&F's "
                 "Dead Oil Viscosity model. Please provide the temperature, stock-tank-oil "
                 "molecular weight, and API gravity. You may provide the values "
                 "together or one at a time."
@@ -271,7 +272,9 @@ configured_api_key = get_setting("OPENAI_API_KEY")
 model = get_setting("OPENAI_MODEL", DEFAULT_MODEL) or DEFAULT_MODEL
 
 st.title("IPB&F Dead-Oil Viscosity AI Agent")
-st.caption("Interaction of Phase-Behavior and Flow (IPB&F) Consortium")
+st.caption(
+    " A product of the Interaction of Phase-Behavior and Flow (IPB&F) Consortium"
+)
 
 # Automatically use a configured environment/Streamlit secret.
 if configured_api_key and "user_api_key" not in st.session_state:
