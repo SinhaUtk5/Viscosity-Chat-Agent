@@ -184,8 +184,8 @@ def reset_chat() -> None:
         {
             "role": "assistant",
             "content": (
-                "Welcome! I can predict dead-oil viscosity using the IPB&F "
-                "XGBoost model. Please provide the temperature, stock-tank-oil "
+                "Welcome! I can predict dead-oil viscosity using the IPB&F's "
+                "Dead Oil Viscosity model. Please provide the temperature, stock-tank-oil "
                 "molecular weight, and API gravity. You may provide the values "
                 "together or one at a time."
             ),
