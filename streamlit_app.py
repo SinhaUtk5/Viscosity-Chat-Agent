@@ -484,11 +484,11 @@ st.subheader("Research Team")
 researcher_col, faculty_col = st.columns(2)
 
 with researcher_col:
-    show_resized_image("Utkarsh_Sinha.png", target_height=200)
+    show_resized_image("utkarsh.png", target_height=200)
     st.markdown("**Utkarsh Sinha**")
     st.caption("Research Contributor")
 
 with faculty_col:
-    show_resized_image("Birol_Dindoruk.png", target_height=200)
+    show_resized_image("birol.png", target_height=200)
     st.markdown("**Dr. Birol Dindoruk**")
     st.caption("Faculty Advisor · IPB&F Consortium")
