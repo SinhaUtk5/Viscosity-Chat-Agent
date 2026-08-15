@@ -1,0 +1,6 @@
+mcp>=1.12,<2
+numpy>=1.26,<3
+openai>=1.75,<3
+Pillow>=10,<13
+streamlit>=1.40,<2
+xgboost>=2,<4
