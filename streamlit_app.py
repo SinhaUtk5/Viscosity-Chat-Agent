@@ -33,49 +33,99 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    :root {
+        --maroon: #500000;
+        --maroon-soft: rgba(80, 0, 0, 0.08);
+        --gold: #D6A84B;
+        --ink: #202124;
+        --line: rgba(80, 0, 0, 0.16);
+    }
+
     html, body, [class*="css"] {
-        font-size: 15pt;
+        font-size: 16px;
     }
 
     .block-container {
-        max-width: 1450px;
-        padding-top: 2rem;
+        max-width: 1180px;
+        padding-top: 1.6rem;
         padding-bottom: 3rem;
     }
 
-    [data-testid="stChatMessage"] {
-        border: 1px solid rgba(128, 128, 128, 0.20);
-        border-radius: 14px;
-        padding: 0.55rem;
-        margin-bottom: 0.65rem;
+    h1, h2, h3 {
+        letter-spacing: -0.02em;
     }
 
-    .welcome-box {
-        background: linear-gradient(
-            135deg,
-            rgba(80, 0, 0, 0.10),
-            rgba(80, 0, 0, 0.025)
-        );
-        border-left: 5px solid #500000;
-        border-radius: 12px;
-        padding: 1rem 1.25rem;
-        margin: 1rem 0;
+    [data-testid="stChatMessage"] {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 0.7rem;
+        margin-bottom: 0.75rem;
+        box-shadow: 0 7px 22px rgba(30, 20, 20, 0.04);
+    }
+
+    .hero-card {
+        background:
+            radial-gradient(circle at 92% 12%, rgba(214, 168, 75, 0.22), transparent 30%),
+            linear-gradient(135deg, rgba(80, 0, 0, 0.12), rgba(80, 0, 0, 0.025));
+        border: 1px solid var(--line);
+        border-top: 4px solid var(--maroon);
+        border-radius: 20px;
+        padding: 1.45rem 1.6rem;
+        margin: 1rem 0 0.75rem;
+        box-shadow: 0 12px 35px rgba(80, 0, 0, 0.07);
+    }
+
+    .hero-kicker {
+        color: var(--maroon);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-title {
+        color: var(--ink);
+        font-size: 1.35rem;
+        font-weight: 750;
+        margin-bottom: 0.45rem;
+    }
+
+    .hero-copy {
+        color: #3f4145;
+        line-height: 1.65;
+        margin: 0;
+        max-width: 900px;
     }
 
     .api-box {
         max-width: 720px;
         margin: 1rem auto;
-        padding: 1.2rem 1.4rem;
-        background-color: rgba(128, 128, 128, 0.06);
-        border: 1px solid rgba(128, 128, 128, 0.20);
-        border-radius: 14px;
+        padding: 1.35rem 1.5rem;
+        background: linear-gradient(145deg, #ffffff, rgba(80, 0, 0, 0.04));
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 12px 35px rgba(80, 0, 0, 0.06);
     }
 
     .publication-box {
-        background-color: rgba(128, 128, 128, 0.06);
-        border-radius: 10px;
-        padding: 0.9rem 1.2rem;
-        margin: 0.8rem 0 1rem 0;
+        background: rgba(128, 128, 128, 0.055);
+        border-left: 4px solid var(--gold);
+        border-radius: 12px;
+        padding: 0.95rem 1.15rem;
+        margin: 0.75rem 0 1rem;
+        color: #45474b;
+        line-height: 1.55;
+    }
+
+    [data-testid="stSidebar"] {
+        border-right: 1px solid rgba(80, 0, 0, 0.10);
+    }
+
+    .stButton > button, .stLinkButton > a {
+        border-radius: 12px;
+        min-height: 2.75rem;
+        font-weight: 650;
     }
     </style>
     """,
@@ -221,10 +271,7 @@ configured_api_key = get_setting("OPENAI_API_KEY")
 model = get_setting("OPENAI_MODEL", DEFAULT_MODEL) or DEFAULT_MODEL
 
 st.title("IPB&F Dead-Oil Viscosity AI Agent")
-
-st.markdown(
-    "### A product of the Interaction of Phase-Behavior and Flow " "(IPB&F) Consortium"
-)
+st.caption("Interaction of Phase-Behavior and Flow (IPB&F) Consortium")
 
 # Automatically use a configured environment/Streamlit secret.
 if configured_api_key and "user_api_key" not in st.session_state:
@@ -310,56 +357,43 @@ with st.sidebar:
 
 st.markdown(
     """
-    <div class="welcome-box">
-    This intelligent viscosity agent brings the published IPB&F dead-oil
-    viscosity model into a conversational interface. Describe the fluid
-    information available to you, and the agent will identify the inputs,
-    request anything missing, run the underlying XGBoost model, and report
-    the predicted viscosity in centipoise.
+    <div class="hero-card">
+        <div class="hero-kicker">Research-powered calculation</div>
+        <div class="hero-title">Dead-oil viscosity, through a simple conversation</div>
+        <p class="hero-copy">
+            Provide temperature, stock-tank-oil molecular weight, and API gravity.
+            The agent identifies the values, asks for anything missing, runs the
+            calculation, and reports viscosity in centipoise.
+        </p>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-st.markdown("""
-    The prediction uses:
+st.link_button(
+    "↗ Open the IPB&F Dead-Oil Viscosity Calculator",
+    "https://biroldindorukeorpvtlab-viscosity-dead-oil.streamlit.app/",
+    type="primary",
+    use_container_width=True,
+)
+st.caption(
+    "This agent runs the calculation available at the IPB&F Dead-Oil "
+    "Viscosity Calculator linked above."
+)
 
-    - Temperature of interest, °C
-    - Stock-tank-oil molecular weight
-    - API gravity
-    """)
-
-st.markdown("#### Scientific foundation")
+st.markdown("#### Research foundation")
 
 st.markdown(
     """
     <div class="publication-box">
-    Sinha, U., Dindoruk, B., and Soliman, M. (2022).
-    <i>Physics-Augmented Correlations and Machine-Learning Methods to
-    Accurately Calculate Dead-Oil Viscosity Based on the Available Inputs.</i>
-    SPE Journal, SPE-209610-PA.
+    Inspired by <strong>SPE-209610-PA</strong>: Sinha, U., Dindoruk, B., and
+    Soliman, M. Y. (2022), <i>Physics-Augmented Correlations and Machine-Learning
+    Methods to Accurately Calculate Dead-Oil Viscosity Based on the Available
+    Inputs</i>, SPE Journal, 27(5), 3240–3253.
     </div>
     """,
     unsafe_allow_html=True,
 )
-
-resource_col1, resource_col2 = st.columns(2)
-
-with resource_col1:
-    st.link_button(
-        "📄 Download Example Input CSV",
-        "https://drive.google.com/file/d/"
-        "1y-DxwgwosfZna6ip5-oezFzeiHjBpZtV/view?usp=drive_link",
-        use_container_width=True,
-    )
-
-with resource_col2:
-    st.link_button(
-        "🎥 Watch the Short Help Video",
-        "https://drive.google.com/file/d/"
-        "1Gpd1ZlIimzP8EFscFj_Ys6WtGLtN3UBb/view?usp=drive_link",
-        use_container_width=True,
-    )
 
 st.divider()
 
@@ -450,13 +484,11 @@ st.subheader("Research Team")
 researcher_col, faculty_col = st.columns(2)
 
 with researcher_col:
-    # Use the existing filename from your original application.
     show_resized_image("Utkarsh_Sinha.png", target_height=200)
     st.markdown("**Utkarsh Sinha**")
     st.caption("Research Contributor")
 
 with faculty_col:
-    # Use the existing filename from your original application.
     show_resized_image("Birol_Dindoruk.png", target_height=200)
     st.markdown("**Dr. Birol Dindoruk**")
     st.caption("Faculty Advisor · IPB&F Consortium")
