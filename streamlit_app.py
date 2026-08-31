@@ -489,7 +489,7 @@ researcher_col, faculty_col = st.columns(2)
 with researcher_col:
     show_resized_image("utkarsh.jpg", target_height=200)
     st.markdown("**Utkarsh Sinha**")
-    st.caption("Research Contributor")
+    st.caption("volunteer Research Associate")
 
 with faculty_col:
     show_resized_image("birol.jpg", target_height=200)
